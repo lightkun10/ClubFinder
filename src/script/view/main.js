@@ -1,21 +1,28 @@
-const main = () => {
+const main = function () {
     const searchElement = document.querySelector("#searchElement");
     const buttonSearchElement = document.querySelector("#searchButtonElement");
     const clubListElement = document.querySelector("#clubList");
 
-    const onButtonSearchClicked = _ => {
-        const dataSource = new DataSource(renderResult, fallbackResult);
-        dataSource.searchClub(searchElement.value);
-    };
+    /** Using only promise. */
+    // const onButtonSearchClicked = function () {
+    //     DataSource.searchClub(searchElement.value)
+    //     .then(renderResult)
+    //     .catch(fallbackResult);
+    // };
 
-    const renderResult = (results) => {
+    /** Using async/await. */
+    const onButtonSearchClicked = async () => {
+        try {
+            const result = await DataSource.searchClub(searchElement.value);
+            renderResult(result);
+        } catch (msg) {
+            fallbackResult(msg);
+        }
+    }
+
+    const renderResult = function (results) {
         clubListElement.innerHTML = "";
-        results.forEach(club => {
-            // Old way
-            // const name = club.name;
-            // const fanArt = club.fanArt;
-            // const description = club.description;
-
+        results.forEach(function (club) {
             // Object destructuring
             const {name, fanArt, description} = club;
             const clubElement = document.createElement("div");
@@ -31,7 +38,7 @@ const main = () => {
         })
     };
 
-    const fallbackResult = message => {
+    const fallbackResult = function (message) {
         clubListElement.innerHTML = "";
         clubListElement.innerHTML += `<h2 class="placeholder">${message}</h2>`
     };
