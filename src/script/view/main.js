@@ -1,13 +1,14 @@
+import '../component/search-bar.js';
+import '../component/club-list.js';
 import DataSource from '../data/data-source.js';
 
 const main = function () {
-    const searchElement = document.querySelector("#searchElement");
-    const buttonSearchElement = document.querySelector("#searchButtonElement");
-    const clubListElement = document.querySelector("#clubList");
+    const searchBar = document.querySelector("search-bar");
+    const clubList = document.querySelector('club-list');
 
     /** Using only promise. */
     // const onButtonSearchClicked = function () {
-    //     DataSource.searchClub(searchElement.value)
+    //     DataSource.searchClub(searchBar.value)
     //     .then(renderResult)
     //     .catch(fallbackResult);
     // };
@@ -15,37 +16,23 @@ const main = function () {
     /** Using async/await. */
     const onButtonSearchClicked = async () => {
         try {
-            const result = await DataSource.searchClub(searchElement.value);
+            const result = await DataSource.searchClub(searchBar.value);
             renderResult(result);
         } catch (msg) {
             fallbackResult(msg);
         }
     }
 
-    const renderResult = function (results) {
-        clubListElement.innerHTML = "";
-        results.forEach(function (club) {
-            // Object destructuring
-            const {name, fanArt, description} = club;
-            const clubElement = document.createElement("div");
-            clubElement.setAttribute("class", "club");
-
-            clubElement.innerHTML = 
-                `<img class="fan-art-club" src="${fanArt}" alt="Fan Art">
-                <div class="club-info">
-                    <h2>${name}</h2>
-                    <p>${description}</p>
-                </div>`
-            clubListElement.appendChild(clubElement);
-        })
+    const renderResult = results => {
+        clubList.clubs = results;
     };
 
     const fallbackResult = function (message) {
-        clubListElement.innerHTML = "";
-        clubListElement.innerHTML += `<h2 class="placeholder">${message}</h2>`
+        clubList.renderError(message);
     };
 
-    buttonSearchElement.addEventListener("click", onButtonSearchClicked);
+    // buttonSearchElement.addEventListener("click", onButtonSearchClicked);
+    searchBar.clickEvent = onButtonSearchClicked;
 };
 
 export default main;
