@@ -1,0 +1,35 @@
+{
+  "name": "clubfinder",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000C\u0000l\u0000u\u0000b\u0000F\u0000i\u0000n\u0000d\u0000e\u0000r\u0000\r\u0000 \u0000",
+  "main": "app.js",
+  "scripts": {
+    "start-dev": "webpack serve --config webpack.dev.js ",
+    "build": "webpack --config webpack.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lightkun10/ClubFinder.git"
+  },
+  "author": "pandupanda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lightkun10/ClubFinder/issues"
+  },
+  "homepage": "https://github.com/lightkun10/ClubFinder#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "babel-loader": "^8.2.1",
+    "css-loader": "^5.0.1",
+    "html-webpack-plugin": "^4.5.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.4.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.4.0"
+  },
+  "dependencies": {
+    "regenerator-runtime": "^0.13.7"
+  }
+}
