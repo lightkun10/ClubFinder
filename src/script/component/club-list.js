@@ -2,6 +2,11 @@ import './club-item.js';
 
 class ClubList extends HTMLElement {
 
+    constructor() {
+        super();
+        this._shadowDOM = this.attachShadow({mode: "open"});
+    }
+
     connectedCallback() {
         this.render();
     }
@@ -12,17 +17,28 @@ class ClubList extends HTMLElement {
     }
 
     render() {
-        this.innerHTML = "";
+        this._shadowDOM.innerHTML = "";
         this._clubs.forEach(club => {
             const clubItem = document.createElement('club-item');
             clubItem.club = club;
-            this.appendChild(clubItem);
+            this._shadowDOM.appendChild(clubItem);
         })
     }
 
     renderError(message) {
-        this.innerHTML = "";
-        this.innerHTML += `<h2 class="placeholder">${message}</h2>`
+        this._shadowDOM.innerHTML = `
+            <style>
+                .placeholder {
+                    font-weight: lighter;
+                    color: rgba(0,0,0,0.5);
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                }
+            </style>
+        `;
+        this._shadowDOM.innerHTML += `<h2 class="placeholder">${message}</h2>`
     }
 }
 
